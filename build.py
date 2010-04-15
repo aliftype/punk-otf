@@ -6,14 +6,6 @@ import glob
 import subprocess
 import tempfile
 
-def get_bbox(file):
-    eps = open(file, "r")
-    while eps:
-        line = eps.readline()
-        if line.find("%%BoundingBox: ") == 0:
-            bbox = line.split()[1:]
-            return bbox
-
 def run_mpost():
     subprocess.call(
             ['mpost',
@@ -38,8 +30,6 @@ def import_glyphs(font, instance):
 
         print "importing '%s'" % glyph.glyphname
 
-        bbox  = get_bbox(file)
-        glyph.width = int(bbox[2])
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
 
 def do_instances(instances, tempdir, font):
@@ -92,7 +82,12 @@ def greek_caps(font):
         glyph = font.createChar(-1, c)
         glyph.addReference(n)
         glyph.useRefsMetrics(n)
+        glyph.unlinkRef()
         glyph.addPosSub("Randomize subtable", (n+".1",n+".2",n+".3",n+".4",n+".5",n+".6",n+".7",n+".8",n+".9"))
+
+def autowidth(font):
+    font.selection.all()
+    font.autoWidth(70, 10, 40)
 
 def finalise(font):
     space         = font.createChar(32)
@@ -116,6 +111,7 @@ if __name__ == "__main__":
     do_instances(instances, tempdir, font)
     add_gsub    (font)
     greek_caps  (font)
+    autowidth   (font)
     finalise    (font)
     os.chdir    (cwd)
 
