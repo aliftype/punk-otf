@@ -71,6 +71,29 @@ def add_gsub(font):
                 n = glyph.glyphname
                 glyph.addPosSub("Randomize subtable", (n+".1",n+".2",n+".3",n+".4",n+".5",n+".6",n+".7",n+".8",n+".9"))
 
+def greek_caps(font):
+    caps = {
+            "Alpha"  : "A",
+            "Beta"   : "B",
+            "Epsilon": "E",
+            "Zeta"   : "Z",
+            "Eta"    : "H",
+            "Iota"   : "I",
+            "Kappa"  : "K",
+            "Mu"     : "M",
+            "Nu"     : "N",
+            "Omicron": "O",
+            "Rho"    : "P",
+            "Tau"    : "T",
+            "Chi"    : "X"
+            }
+    for c in caps:
+        n     = caps[c]
+        glyph = font.createChar(-1, c)
+        glyph.addReference(n)
+        glyph.useRefsMetrics(n)
+        glyph.addPosSub("Randomize subtable", (n+".1",n+".2",n+".3",n+".4",n+".5",n+".6",n+".7",n+".8",n+".9"))
+
 def finalise(font):
     space         = font.createChar(32)
     space.width   = 400
@@ -92,6 +115,7 @@ if __name__ == "__main__":
 
     do_instances(instances, tempdir, font)
     add_gsub    (font)
+    greek_caps  (font)
     finalise    (font)
     os.chdir    (cwd)
 
