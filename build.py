@@ -34,5 +34,8 @@ for i in svg_glyphs:
 	glyph.width = int(bbox[2])
 	glyph.importOutlines(i, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
 
+space = font.createChar(32)
+space.width = 400
+
 print "saving font '%s'" % font.fullname
 font.save()
