@@ -32,7 +32,7 @@ def import_glyphs(font, instance):
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
 
-def do_instances(instances, tempdir, font):
+def do_instances(font, instances, tempdir):
     for instance in range(instances):
         instance     = str(instance)
         os.mkdir     (os.path.join(tempdir, instance))
@@ -40,7 +40,13 @@ def do_instances(instances, tempdir, font):
         run_mpost    ()
         import_glyphs(font, instance)
 
-def add_gsub(font):
+def get_alt(name, instances):
+    alt = ()
+    for i in range(1,instances):
+        alt = alt + ("%s.%d" %(name, i),)
+    return alt
+
+def add_gsub(font, instances):
     font.addLookup(
             "Randomize lookup",
             "gsub_alternate",
@@ -58,10 +64,9 @@ def add_gsub(font):
 
     for glyph in font.glyphs():
         if glyph.unicode != -1:
-                n = glyph.glyphname
-                glyph.addPosSub("Randomize subtable", (n+".1",n+".2",n+".3",n+".4",n+".5",n+".6",n+".7",n+".8",n+".9"))
+                glyph.addPosSub("Randomize subtable", get_alt(glyph.glyphname, instances))
 
-def greek_caps(font):
+def greek_caps(font, instances):
     caps = {
             "Alpha"  : "A",
             "Beta"   : "B",
@@ -78,12 +83,12 @@ def greek_caps(font):
             "Chi"    : "X"
             }
     for c in caps:
-        n     = caps[c]
+        name  = caps[c]
         glyph = font.createChar(-1, c)
-        glyph.addReference(n)
-        glyph.useRefsMetrics(n)
+        glyph.addReference(name)
+        glyph.useRefsMetrics(name)
         glyph.unlinkRef()
-        glyph.addPosSub("Randomize subtable", (n+".1",n+".2",n+".3",n+".4",n+".5",n+".6",n+".7",n+".8",n+".9"))
+        glyph.addPosSub("Randomize subtable", get_alt(name, instances))
 
 def autowidth(font):
     font.selection.all()
@@ -108,9 +113,9 @@ if __name__ == "__main__":
     font.version    = "001.000"
     font.encoding   = "Unicode"
 
-    do_instances(instances, tempdir, font)
-    add_gsub    (font)
-    greek_caps  (font)
+    do_instances(font, instances, tempdir)
+    add_gsub    (font, instances)
+    greek_caps  (font, instances)
     autowidth   (font)
     finalise    (font)
     os.chdir    (cwd)
