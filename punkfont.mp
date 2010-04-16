@@ -109,7 +109,7 @@ if unknown punk_font_loaded :
     enddef;
 
     def pd expr z = % {\bf drawdot}
-        addto currentpicture contour dot_pen_path shifted z.t_ withpen penspeck
+        addto currentpicture contour dot_pen_path shifted z.t_ % withpen penspeck
     enddef;
 
     def initialize_punk_upper =
