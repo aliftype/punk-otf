@@ -153,3 +153,4 @@ if __name__ == "__main__":
 
     print "saving font '%s'" % font.fullname
     font.save()
+    font.generate(font.fontname+".otf")
