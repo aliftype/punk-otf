@@ -5,6 +5,7 @@ import fontforge
 import glob
 import subprocess
 import tempfile
+import shutil as sh
 
 def run_mpost(file):
     subprocess.call(
@@ -150,6 +151,8 @@ if __name__ == "__main__":
     autokern    (font, instances)
     finalise    (font)
     os.chdir    (cwd)
+
+    sh.rmtree   (tempdir)
 
     print "saving font '%s'" % font.fullname
     font.save()
