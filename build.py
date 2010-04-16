@@ -94,6 +94,36 @@ def autowidth(font):
     font.selection.all()
     font.autoWidth(70, 10, 40)
 
+def autokern(font, instances):
+    font.addLookup(
+            "Kern lookup",
+            "gpos_pair",
+            (),
+            (
+                ('kern',
+                    (
+                        ('DFLT', ('dflt',)),
+                        ('grek', ('dflt',)),
+                        ('latn', ('dflt',))
+                    )
+                ),
+            ))
+    font.addLookupSubtable("Kern lookup", "Kern subtable")
+
+    list1 = ["A", "V", "a", "v", "W", "w", "o", "O", "T", "L", "Y", "l", "y"]
+    list2 = [ ]
+
+    for a in list1:
+        list2.append(a)
+        alt = get_alt(a, instances)
+        for b in alt:
+            list2.append(b)
+
+    list1 = list2
+
+    print "Auto kerning '%s'" % font.fullname
+    font.autoKern("Kern subtable", 150, list1, list2, onlyCloser=True)
+
 def finalise(font):
     space         = font.createChar(32)
     space.width   = 400
@@ -117,6 +147,7 @@ if __name__ == "__main__":
     add_gsub    (font, instances)
     greek_caps  (font, instances)
     autowidth   (font)
+    autokern    (font, instances)
     finalise    (font)
     os.chdir    (cwd)
 
