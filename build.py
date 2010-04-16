@@ -6,14 +6,14 @@ import glob
 import subprocess
 import tempfile
 
-def run_mpost():
+def run_mpost(file):
     subprocess.call(
             ['mpost',
              '&mfplain',
              '\mode=localfont;',
              'scale_factor:=100.375;',
              'outputtemplate:="%4c.eps";',
-             'input %s;' % mpfile,
+             'input %s;' % file,
              'bye']
             )
 
@@ -32,12 +32,12 @@ def import_glyphs(font, instance):
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
 
-def do_instances(font, instances, tempdir):
+def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
         instance     = str(instance)
         os.mkdir     (os.path.join(tempdir, instance))
         os.chdir     (os.path.join(tempdir, instance))
-        run_mpost    ()
+        run_mpost    (mpfile)
         import_glyphs(font, instance)
 
 def get_alt(name, instances):
@@ -113,7 +113,7 @@ if __name__ == "__main__":
     font.version    = "001.000"
     font.encoding   = "Unicode"
 
-    do_instances(font, instances, tempdir)
+    do_instances(font, instances, mpfile, tempdir)
     add_gsub    (font, instances)
     greek_caps  (font, instances)
     autowidth   (font)
