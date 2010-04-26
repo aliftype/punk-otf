@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 import shutil as sh
 
-def run_mpost(file):
+def run_mpost(file, tempdir):
     subprocess.call(
             ['mpost',
              '&mfplain',
@@ -15,31 +15,32 @@ def run_mpost(file):
              'scale_factor:=100.375;',
              'outputtemplate:="%4c.eps";',
              'input %s;' % file,
-             'bye']
+             'bye'],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            cwd=tempdir,
             )
 
-def import_glyphs(font, instance):
-    glyph_files = glob.glob("[0-9][0-9][0-9][0-9].eps")
-    glyph_files.sort()
+def import_glyphs(font, instance, tempdir):
+    print "Importing instance '%s'" % instance
+
+    glyph_files = glob.glob(os.path.join(tempdir, "[0-9][0-9][0-9][0-9].eps"))
 
     for file in glyph_files:
-        code  = int(os.path.splitext(file)[0])
+        code  = int(os.path.splitext(os.path.basename(file))[0])
         if instance == "0":
             glyph = font.createChar(code)
         else:
             glyph = font.createChar(-1, font[code].glyphname+"."+instance)
-
-        print "importing '%s'" % glyph.glyphname
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
 
 def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
         instance     = str(instance)
-        os.mkdir     (os.path.join(tempdir, instance))
-        os.chdir     (os.path.join(tempdir, instance))
-        run_mpost    (mpfile)
-        import_glyphs(font, instance)
+        instance_dir = os.path.join(tempdir, instance)
+        os.mkdir     (instance_dir)
+        run_mpost    (mpfile, instance_dir)
+        import_glyphs(font, instance, instance_dir)
 
 def get_alt(name, instances):
     alt = ()
@@ -122,7 +123,7 @@ def autokern(font, instances):
 
     list1 = list2
 
-    print "Auto kerning '%s'" % font.fullname
+    print "Auto kerning\t'%s'" % font.fullname
     font.autoKern("Kern subtable", 150, list1, list2, onlyCloser=True)
 
 def finalise(font):
@@ -130,7 +131,6 @@ def finalise(font):
     space.width   = 400
 
 if __name__ == "__main__":
-    cwd       = os.getcwd()
     tempdir   = tempfile.mkdtemp()
     mpfile    = os.path.abspath(sys.argv[1])
     instances = 10
@@ -150,10 +150,9 @@ if __name__ == "__main__":
     autowidth   (font)
     autokern    (font, instances)
     finalise    (font)
-    os.chdir    (cwd)
 
     sh.rmtree   (tempdir)
 
-    print "saving font '%s'" % font.fullname
+    print "Saving font\t'%s'" % font.fullname
     font.save()
     font.generate(font.fontname+".otf")
