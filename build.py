@@ -24,6 +24,7 @@ def import_glyphs(font, instance, tempdir):
     print "Importing instance '%s'" % instance
 
     glyph_files = glob.glob(os.path.join(tempdir, "[0-9][0-9][0-9][0-9].eps"))
+    glyph_files.sort()
 
     for file in glyph_files:
         code  = int(os.path.splitext(os.path.basename(file))[0])
@@ -34,6 +35,10 @@ def import_glyphs(font, instance, tempdir):
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
         glyph.round()
+        glyph.simplify()
+        glyph.removeOverlap()
+        glyph.round()
+        glyph.autoHint()
 
 def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
