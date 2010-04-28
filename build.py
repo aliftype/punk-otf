@@ -33,6 +33,7 @@ def import_glyphs(font, instance, tempdir):
             glyph = font.createChar(-1, font[code].glyphname+"."+instance)
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
+        glyph.round()
 
 def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
