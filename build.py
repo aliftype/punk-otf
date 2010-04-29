@@ -55,6 +55,8 @@ def get_alt(name, instances):
     return alt
 
 def add_gsub(font, instances):
+    print "Adding glyph substitution rules..."
+
     font.addLookup(
             "Randomize lookup",
             "gsub_alternate",
@@ -75,6 +77,8 @@ def add_gsub(font, instances):
                 glyph.addPosSub("Randomize subtable", get_alt(glyph.glyphname, instances))
 
 def greek_caps(font, instances):
+    print "Adding missing Greek capitals..."
+
     caps = {
             "Alpha"  : "A",
             "Beta"   : "B",
@@ -99,10 +103,14 @@ def greek_caps(font, instances):
         glyph.addPosSub("Randomize subtable", get_alt(name, instances))
 
 def autowidth(font):
+    print "Auto setting side bearings..."
+
     font.selection.all()
     font.autoWidth(70, 10, 40)
 
 def autokern(font, instances):
+    print "Auto kerning..."
+
     font.addLookup(
             "Kern lookup",
             "gpos_pair",
@@ -129,7 +137,6 @@ def autokern(font, instances):
 
     list1 = list2
 
-    print "Auto kerning\t'%s'" % font.fullname
     font.autoKern("Kern subtable", 150, list1, list2, onlyCloser=True)
 
 def finalise(font):
@@ -159,6 +166,6 @@ if __name__ == "__main__":
 
     sh.rmtree   (tempdir)
 
-    print "Saving font\t'%s'" % font.fullname
+    print "Saving file '%s'..." % (font.fontname+".otf")
     font.save()
     font.generate(font.fontname+".otf")
