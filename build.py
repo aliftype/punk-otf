@@ -34,11 +34,6 @@ def import_glyphs(font, instance, tempdir):
             glyph = font.createChar(-1, font[code].glyphname+"."+instance)
 
         glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
-        glyph.round()
-        glyph.simplify()
-        glyph.removeOverlap()
-        glyph.round()
-        glyph.autoHint()
 
 def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
@@ -107,6 +102,11 @@ def autowidth(font):
 
     font.selection.all()
     font.autoWidth(70, 10, 40)
+    font.round() # this one is needed to make simplify more reliable
+    font.simplify()
+    font.removeOverlap()
+    font.round()
+    font.autoHint()
 
 def autokern(font, instances):
     print "Auto kerning..."
