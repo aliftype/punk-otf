@@ -172,9 +172,12 @@ if __name__ == "__main__":
     font.fontname   = "PunkNova"
     font.fullname   = "Punk Nova"
     font.familyname = "Punk Nova"
-    font.copyright  = ""
     font.version    = "001.000"
     font.encoding   = "Unicode"
+    font.copyright  = "Unlimited copying and redistribution of this file are\
+ permitted as long as this file is not modified. Modifications\
+ are permitted, but only if the resulting file is not named\
+ punknova.otf and the (internal) fontname differs from 'Punk Nova'."
 
     do_instances(font, instances, mpfile, tempdir)
     add_gsub    (font, instances)
