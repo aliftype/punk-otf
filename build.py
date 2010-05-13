@@ -28,6 +28,14 @@ def import_glyphs(font, instance, tempdir):
 
     for file in glyph_files:
         code  = int(os.path.splitext(os.path.basename(file))[0])
+        char  = unichr(code)
+
+        if char.isupper() and int(instance) > 15:
+            continue
+
+        if not char.isupper() and not char.islower() and int(instance) > 7:
+            continue
+
         if instance == "0":
             glyph = font.createChar(code)
         else:
@@ -43,10 +51,19 @@ def do_instances(font, instances, mpfile, tempdir):
         run_mpost    (mpfile, instance_dir)
         import_glyphs(font, instance, instance_dir)
 
-def get_alt(name, instances):
-    alt = ()
+def get_alt(code, name):
+    instances = 8
+    alt       = ()
+    char      = unichr(code)
+
+    if char.islower():
+        instances = 32
+    elif char.isupper():
+        instances = 16
+
     for i in range(1,instances):
         alt = alt + ("%s.%d" %(name, i),)
+
     return alt
 
 def add_gsub(font, instances):
@@ -69,7 +86,8 @@ def add_gsub(font, instances):
 
     for glyph in font.glyphs():
         if glyph.unicode != -1:
-                glyph.addPosSub("Randomize subtable", get_alt(glyph.glyphname, instances))
+                glyph.addPosSub("Randomize subtable",
+                        get_alt(glyph.unicode, glyph.glyphname))
 
 def greek_caps(font, instances):
     print "Adding missing Greek capitals..."
@@ -95,7 +113,8 @@ def greek_caps(font, instances):
         glyph.addReference(name)
         glyph.useRefsMetrics(name)
         glyph.unlinkRef()
-        glyph.addPosSub("Randomize subtable", get_alt(name, instances))
+        glyph.addPosSub("Randomize subtable",
+                get_alt(font.createMappedChar(name).unicode, name))
 
 def autowidth(font):
     print "Auto setting side bearings..."
@@ -131,7 +150,7 @@ def autokern(font, instances):
 
     for a in list1:
         list2.append(a)
-        alt = get_alt(a, instances)
+        alt = get_alt(font.createMappedChar(a).unicode, a)
         for b in alt:
             list2.append(b)
 
@@ -146,7 +165,7 @@ def finalise(font):
 if __name__ == "__main__":
     tempdir   = tempfile.mkdtemp()
     mpfile    = os.path.abspath(sys.argv[1])
-    instances = 10
+    instances = 32
 
     font            = fontforge.font()
 
