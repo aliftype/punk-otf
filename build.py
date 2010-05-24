@@ -13,7 +13,7 @@ def run_mpost(file, tempdir):
              '&mfplain',
              '\mode=localfont;',
              'scale_factor:=100.375;',
-             'outputtemplate:="%4c.eps";',
+             'outputtemplate:="%c.eps";',
              'input %s;' % file,
              'bye'],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -23,8 +23,7 @@ def run_mpost(file, tempdir):
 def import_glyphs(font, instance, tempdir):
     print "Importing instance '%s'" % instance
 
-    glyph_files = glob.glob(os.path.join(tempdir, "[0-9][0-9][0-9][0-9].eps"))
-    glyph_files.sort()
+    glyph_files = glob.glob(os.path.join(tempdir, "*.eps"))
 
     for file in glyph_files:
         code  = int(os.path.splitext(os.path.basename(file))[0])
@@ -41,7 +40,7 @@ def import_glyphs(font, instance, tempdir):
         else:
             glyph = font.createChar(-1, font[code].glyphname+"."+instance)
 
-        glyph.importOutlines(file, ("toobigwarn", "correctdir", "removeoverlap", "handle_eraser"))
+        glyph.importOutlines(file, ("toobigwarn", "correctdir", "handle_eraser"))
 
 def do_instances(font, instances, mpfile, tempdir):
     for instance in range(instances):
