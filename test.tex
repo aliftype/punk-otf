@@ -3,7 +3,8 @@
 
 \starttypescript [serif] [punknova]
      \setups[font:fallback:serif]
-     \definefontsynonym [Serif] [file:PunkNova] [features=punknova]
+     \definefontsynonym [Serif]     [file:PunkNova]      [features=punknova]
+     \definefontsynonym [SerifBold] [file:PunkNova-Bold] [features=punknova]
 \stoptypescript
 
 \starttypescript [punknova]
@@ -14,4 +15,6 @@
 
 \starttext
 \input knuth
+
+\bf \input knuth
 \stoptext

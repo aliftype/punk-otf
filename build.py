@@ -162,14 +162,20 @@ def finalise(font):
     space.width   = 400
 
 if __name__ == "__main__":
+    style     = sys.argv[2].title()
     tempdir   = tempfile.mkdtemp()
     mpfile    = os.path.abspath(sys.argv[1])
     instances = 32
 
     font            = fontforge.font()
 
-    font.fontname   = "PunkNova"
-    font.fullname   = "Punk Nova"
+    if style != "Regular":
+        font.fontname   = "PunkNova-%s"  % style
+        font.fullname   = "Punk Nova %s" % style
+    else:
+        font.fontname   = "PunkNova"
+        font.fullname   = "Punk Nova"
+
     font.familyname = "Punk Nova"
     font.version    = "001.000"
     font.encoding   = "Unicode"
