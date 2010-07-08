@@ -1,10 +1,17 @@
 \definefontfeature[punknova]
 	[mode=node,script=latn,rand=yes,kern=yes,liga=yes,tlig=yes]
 
+\definefontfeature[punknova-sl][punknova]
+        [slant=0.3]
+
 \starttypescript [serif] [punknova]
      \setups[font:fallback:serif]
      \definefontsynonym [Serif]     [file:PunkNova]      [features=punknova]
      \definefontsynonym [SerifBold] [file:PunkNova-Bold] [features=punknova]
+     \definefontsynonym [SerifItalic]
+                        [file:PunkNova]      [features=punknova-sl]
+     \definefontsynonym [SerifBoldItalic]
+                        [file:PunkNova-Bold] [features=punknova-sl]
 \stoptypescript
 
 \starttypescript [punknova]
@@ -17,4 +24,8 @@
 \input knuth
 
 \bf \input knuth
+
+\it \input knuth
+
+\bi \input knuth
 \stoptext
