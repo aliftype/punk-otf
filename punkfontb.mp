@@ -34,11 +34,10 @@ if unknown punk_font_loaded :
     u#    := 1/4pt# ; % unit width
   % s#    := 1.2pt# ; % extra sidebar
   % s#    := 0.1pt# ; % extra sidebar, needed because we use the bbox currently
-    s#    := 0      ; % extra sidebar, ok
-% s#    := 1.2pt# ; % extra sidebar
-    px#   :=  .8pt# ; % horizontal thickness of pen
-    py#   :=  .5pt# ; % vertical thickness of pen
-    dot#  := 1.3pt# ; % diameter of dots
+    s#    := 1.2pt# ; % extra sidebar
+    px#   :=   1pt# ; % horizontal thickness of pen
+    py#   :=  .8pt# ; % vertical thickness of pen
+    dot#  := 1.7pt# ; % diameter of dots
     dev#  :=  .3pt# ; % standard deviation of punk points
 
   % dot#  :=  .8pt# ; % diameter of dots
@@ -57,9 +56,9 @@ if unknown punk_font_loaded :
     define_whole_pixels(s) ;
     xoffset := s ;
 
-    pickup pencircle xscaled 1.25px yscaled 1.25py ;
+    pickup pencircle xscaled px yscaled py ;
     punk_pen := savepen ;
-    pickup pencircle scaled 1.25dot ;
+    pickup pencircle scaled dot ;
     path dot_pen_path ;
     dot_pen_path := tensepath makepath currentpen ;
 
