@@ -1,17 +1,11 @@
-\definefontfeature[punknova]
-	[mode=node,script=latn,rand=yes,kern=yes,liga=yes,tlig=yes]
-
-\definefontfeature[punknova-sl][punknova]
-        [slant=0.3]
+\definefontfeature[punk][default][mode=node,rand=yes]
+\definefontfeature[punk-sl][punk][slant=0.3]
 
 \starttypescript [serif] [punknova]
-     \setups[font:fallback:serif]
-     \definefontsynonym [Serif]     [file:PunkNova]      [features=punknova]
-     \definefontsynonym [SerifBold] [file:PunkNova-Bold] [features=punknova]
-     \definefontsynonym [SerifItalic]
-                        [file:PunkNova]      [features=punknova-sl]
-     \definefontsynonym [SerifBoldItalic]
-                        [file:PunkNova-Bold] [features=punknova-sl]
+ \definefontsynonym[Serif]           [file:PunkNova]      [features=punk]
+ \definefontsynonym[SerifBold]       [file:PunkNova-Bold] [features=punk]
+ \definefontsynonym[SerifItalic]     [Serif]              [features=punk-sl]
+ \definefontsynonym[SerifBoldItalic] [SerifBold]          [features=punk-sl]
 \stoptypescript
 
 \starttypescript [punknova]
