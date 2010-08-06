@@ -24,10 +24,11 @@ letter have 2^5 variants, 2^4 for each upper case and 2^3 for the rest.
 
 This font is free software, you can do whatever you want with it as long
 as you use different font and file name. The exact copyright statement is:
- "Unlimited copying and redistribution of this file are permitted as long
-  as this file is not modified. Modifications are permitted, but only if
-  the resulting file is not named 'punknova.otf' and the (internal)
-  fontname differs from 'Punk Nova'."
+
+     "Unlimited copying and redistribution of this file are permitted as long
+      as this file is not modified. Modifications are permitted, but only if
+      the resulting file is not named 'punknova.otf' and the (internal)
+      fontname differs from 'Punk Nova'."
 
 The MetaPost source has the following notice:
 
