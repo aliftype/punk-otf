@@ -21,7 +21,7 @@ def run_mpost(file, tempdir):
             )
 
 def import_glyphs(font, instance, tempdir):
-    print "Importing instance '%s'" % instance
+    print "Importing glyph variants set '%s'" % instance
 
     glyph_files = glob.glob(os.path.join(tempdir, "*.eps"))
 
@@ -161,22 +161,34 @@ def finalise(font):
     space         = font.createChar(32)
     space.width   = 400
 
+def usage():
+    print "Usage: %s FONTFILE.mp [STYLE]" % sys.argv[1]
+
 if __name__ == "__main__":
-    style     = sys.argv[2].title()
+    if len(sys.argv) < 2:
+        usage()
+        sys.exit()
+
+    if len(sys.argv) >= 3:
+        style = sys.argv[2].title()
+    else:
+        style = "Regular"
+
     tempdir   = tempfile.mkdtemp()
     mpfile    = os.path.abspath(sys.argv[1])
     instances = 32
 
-    font            = fontforge.font()
+    font      = fontforge.font()
 
     if style != "Regular":
-        font.fontname   = "PunkNova-%s"  % style
-        font.fullname   = "Punk Nova %s" % style
+        font.fontname = "PunkNova-%s"  % style
+        font.fullname = "Punk Nova %s" % style
     else:
-        font.fontname   = "PunkNova"
-        font.fullname   = "Punk Nova"
+        font.fontname = "PunkNova"
+        font.fullname = "Punk Nova"
 
     font.familyname = "Punk Nova"
+    font.weight     = style
     font.version    = "001.000"
     font.encoding   = "Unicode"
     font.copyright  = "Unlimited copying and redistribution of this file are\
@@ -193,6 +205,9 @@ if __name__ == "__main__":
 
     sh.rmtree   (tempdir)
 
-    print "Saving file '%s'..." % (font.fontname+".otf")
-    font.save()
-    font.generate(font.fontname+".otf")
+    filename = "%s-%s.otf" %(font.familyname.replace(" ", "").lower(),
+                             style.lower())
+
+    print "Saving file '%s'..." % filename
+#   font.save()
+    font.generate(filename)
