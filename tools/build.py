@@ -116,10 +116,13 @@ def greek_caps(font, instances):
                 get_alt(font.createMappedChar(name).unicode, name))
 
 def autowidth(font):
-    print "Auto setting side bearings..."
+    print "Auto spacing..."
 
     font.selection.all()
-    font.autoWidth(70, 10, 40)
+    if font.fullname.find("Slanted"):
+        font.autoWidth(40, 0, 20)
+    else:
+        font.autoWidth(70, 10, 40)
     font.round() # this one is needed to make simplify more reliable
     font.simplify()
     font.removeOverlap()
