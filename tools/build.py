@@ -181,7 +181,7 @@ if __name__ == "__main__":
     font      = fontforge.font()
 
     if style != "Regular":
-        font.fontname = "PunkNova-%s"  % style
+        font.fontname = "PunkNova-%s"  % style.replace(" ", "")
         font.fullname = "Punk Nova %s" % style
     else:
         font.fontname = "PunkNova"
@@ -193,7 +193,7 @@ if __name__ == "__main__":
     font.encoding   = "Unicode"
 
     filename = "%s-%s.otf" %(font.familyname.replace(" ", "").lower(),
-                             style.lower())
+                             style.replace(" ", "").lower())
 
     font.copyright  = "Unlimited copying and redistribution of this file are\
  permitted as long as this file is not modified. Modifications are permitted,\
