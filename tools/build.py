@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
     font.familyname = "Punk Nova"
     font.weight     = style
-    font.version    = "001.000"
+    font.version    = "001.002"
     font.encoding   = "Unicode"
 
     filename = "%s-%s.otf" %(font.familyname.replace(" ", "").lower(),
