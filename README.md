@@ -49,7 +49,7 @@ The MetaPost source has the following notice:
     
     2008, Taco Hoekwater & Hans Hagen
 
-
+The MAPS article is [available online](http://www.ntg.nl/maps/37/).
 
 
 Khaled Hosny
