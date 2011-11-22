@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import os, sys
+import os
+import sys
 import fontforge
 import glob
 import subprocess
@@ -165,20 +166,25 @@ def finalise(font):
     space.width   = 400
 
 def usage():
-    print "Usage: %s FONTFILE.mp [STYLE]" % sys.argv[0]
+    print "Usage: %s INFILE.mp OUTFILE.otf" % sys.argv[0]
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         usage()
         sys.exit()
 
-    if len(sys.argv) >= 3:
-        style = sys.argv[2].title()
-    else:
-        style = "Regular"
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+
+    basefile = os.path.basename(infile)
+
+    style = basefile.split("-")[1]
+    style = os.path.splitext(style)[0].title()
+    if style == "Boldslanted":
+        style = "Bold Slanted"
 
     tempdir   = tempfile.mkdtemp()
-    mpfile    = os.path.abspath(sys.argv[1])
+    mpfile    = os.path.abspath(infile)
     instances = 32
 
     font      = fontforge.font()
@@ -195,13 +201,10 @@ if __name__ == "__main__":
     font.version    = "001.002"
     font.encoding   = "Unicode"
 
-    filename = "%s-%s.otf" %(font.familyname.replace(" ", "").lower(),
-                             style.replace(" ", "").lower())
-
     font.copyright  = "Unlimited copying and redistribution of this file are\
  permitted as long as this file is not modified. Modifications are permitted,\
  but only if the resulting file is not named '%s' and the (internal) fontname\
- differs from '%s'." % (filename, font.familyname)
+ differs from '%s'." % (outfile, font.familyname)
 
     do_instances(font, instances, mpfile, tempdir)
     add_gsub    (font, instances)
@@ -212,6 +215,6 @@ if __name__ == "__main__":
 
     sh.rmtree   (tempdir)
 
-    print "Saving file '%s'..." % filename
+    print "Saving file '%s'..." % outfile
 #   font.save()
-    font.generate(filename)
+    font.generate(outfile)
