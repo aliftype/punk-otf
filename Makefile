@@ -23,7 +23,7 @@ all: otf
 otf: $(OTF)
 doc: $(PDF)
 
-$(NAME)-%.otf: $(SRC)/$(SRCNAME)-%.mp
+$(NAME)-%.otf: $(SRC)/$(SRCNAME)-%.mp $(MP)
 	@echo "Building $@"
 	@$(FF) $< $@ $(VERSION)
 
