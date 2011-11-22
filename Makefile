@@ -1,6 +1,6 @@
 NAME=punknova
 SRCNAME=punkfont
-VERSION=1003
+VERSION=001.003
 
 SRC=source
 TOOLS=tools
@@ -25,7 +25,7 @@ doc: $(PDF)
 
 $(NAME)-%.otf: $(SRC)/$(SRCNAME)-%.mp
 	@echo "Building $@"
-	@$(FF) $< $@
+	@$(FF) $< $@ $(VERSION)
 
 $(DOC)/%.pdf: $(DOCSRC)/%.tex
 	@echo "Building $@"

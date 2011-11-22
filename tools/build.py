@@ -166,15 +166,16 @@ def finalise(font):
     space.width   = 400
 
 def usage():
-    print "Usage: %s INFILE.mp OUTFILE.otf" % sys.argv[0]
+    print "Usage: %s INFILE.mp OUTFILE.otf VERSION" % sys.argv[0]
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         usage()
         sys.exit()
 
     infile = sys.argv[1]
     outfile = sys.argv[2]
+    version = sys.argv[3]
 
     basefile = os.path.basename(infile)
 
@@ -198,7 +199,7 @@ if __name__ == "__main__":
 
     font.familyname = "Punk Nova"
     font.weight     = style
-    font.version    = "001.002"
+    font.version    = version
     font.encoding   = "Unicode"
 
     font.copyright  = "Unlimited copying and redistribution of this file are\
