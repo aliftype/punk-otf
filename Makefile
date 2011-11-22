@@ -1,6 +1,6 @@
 NAME=punknova
 SRCNAME=punkfont
-VERSION=001.003
+VERSION=1003
 
 SRC=source
 TOOLS=tools

@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
     font.familyname = "Punk Nova"
     font.weight     = style
-    font.version    = version
+    font.version    = '00%.03f' %(float(version)/1000)
     font.encoding   = "Unicode"
 
     font.copyright  = "Unlimited copying and redistribution of this file are\
