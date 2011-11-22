@@ -1,3 +1,6 @@
+2011/11/22, version 1.003:
+    * 1.002 files had bogus GPOS table, re-built with newer version of
+      FontForge.
 
 2010/09/12, version 1.002:
     * Add slanted and bold slanted fonts.
