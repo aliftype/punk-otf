@@ -2,7 +2,7 @@ The Punk Nova font
 ==================
 
 This is an OpenType implementation of Donald Knuth's
-[Punk font](http://tug.org/TUGboat/Articles/tb09-2/tb21knut.pdf).
+[Punk font][1].
 
 The original Metafont sources were adapted to a more MetaPost friendly
 form by Taco Hoekwater et al.
@@ -13,7 +13,7 @@ outlines are drawn once and stored in the font and the renderer can not
 alter those outlines. To emulate the dynamic nature of Punk, we generate
 several alternate shapes of each glyph and store them in the font.
 Alternate shapes are mapped to the base character using OpenType
-["Randomize"](http://www.microsoft.com/typography/otspec/features_pt.htm#rand)
+["Randomize"][2]
 feature (rand), which tells the renderer to select glyphs randomly from
 the list of alternate shapes.
 
@@ -49,8 +49,11 @@ The MetaPost source has the following notice:
     
     2008, Taco Hoekwater & Hans Hagen
 
-The MAPS article is [available online](http://www.ntg.nl/maps/37/).
+The MAPS article is [available online][3].
 
+[1]: http://tug.org/TUGboat/Articles/tb09-2/tb21knut.pdf
+[2]: http://www.microsoft.com/typography/otspec/features_pt.htm#rand
+[3]: http://www.ntg.nl/maps/37/
 
 Khaled Hosny
 
