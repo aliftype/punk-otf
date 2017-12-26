@@ -202,10 +202,7 @@ if __name__ == "__main__":
     font.version    = '00%.03f' %(float(version)/1000)
     font.encoding   = "Unicode"
 
-    font.copyright  = "Unlimited copying and redistribution of this file are\
- permitted as long as this file is not modified. Modifications are permitted,\
- but only if the resulting file is not named '%s' and the (internal) fontname\
- differs from '%s'." % (outfile, font.familyname)
+    font.copyright  = "Copyright © 2008-2011 The Punk Nova Project Authors."
 
     do_instances(font, instances, mpfile, tempdir)
     add_gsub    (font, instances)

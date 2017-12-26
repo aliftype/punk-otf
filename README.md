@@ -21,39 +21,29 @@ Python script then uses FontForge to import the glyphs into an OpenType
 CFF font. Since this year is the 2^5 anniversary of TeX, each lower case
 letter have 2^5 variants, 2^4 for each upper case and 2^3 for the rest.
 
-This font is free software, you can do whatever you want with it as long
-as you use different font and file names. The exact copyright statement is:
-
-     "Unlimited copying and redistribution of this file are permitted as long
-      as this file is not modified. Modifications are permitted, but only if
-      the resulting file is not named 'punknova.otf' and the (internal)
-      fontname differs from 'Punk Nova'."
+This font is distributed under the terms of Open Font License (OFL).
 
 The MetaPost source has the following notice:
 
-    This file is a merge of the original punk files by Donald Knuth, who
-    added this comment:
-    
-      Font inspired by Gerard and Marjan Unger's lectures,
-      Feb 1985
-
-    The regular punk files are part of TeXLive and in Metafont format. All
-    errors introduced are ours. We also changed the encoding to unicode. In
-    due time we might add a few more more characters. We still need to
-    improve some of the metrics which involves a bit of trial and error. The
-    font just covers basic latin shapes but in ConTeXt MkIV we add virtual
-    composed shapes. There is a module m-punk.tex that implements this. This
-    derivate is also used in mk.tex (mk.pdf) which is one of our tests for
-    LuaTeX. We published an article on it in the MAPS (NTG magazine).
-    
-    2008, Taco Hoekwater & Hans Hagen
+> This file is a merge of the original punk files by Donald Knuth, who
+> added this comment:
+>
+>   Font inspired by Gerard and Marjan Unger's lectures,
+>   Feb 1985
+>
+> The regular punk files are part of TeXLive and in Metafont format. All
+> errors introduced are ours. We also changed the encoding to unicode. In
+> due time we might add a few more more characters. We still need to
+> improve some of the metrics which involves a bit of trial and error. The
+> font just covers basic latin shapes but in ConTeXt MkIV we add virtual
+> composed shapes. There is a module m-punk.tex that implements this. This
+> derivate is also used in mk.tex (mk.pdf) which is one of our tests for
+> LuaTeX. We published an article on it in the MAPS (NTG magazine).
+>
+> 2008, Taco Hoekwater & Hans Hagen
 
 The MAPS article is [available online][3].
 
 [1]: http://tug.org/TUGboat/Articles/tb09-2/tb21knut.pdf
 [2]: http://www.microsoft.com/typography/otspec/features_pt.htm#rand
 [3]: http://www.ntg.nl/maps/37/
-
-Khaled Hosny
-
-6 Aug. 2010
