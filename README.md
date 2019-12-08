@@ -16,8 +16,10 @@ glyphs randomly from the list of alternate shapes.
 Since 2010 was the 2⁵ anniversary of TeX, each lower case letter have 2⁵
 variants, 2⁴ for each upper case and 2³ for the rest.
 
-Unfortunately, the randomize feature is virtually unsupported by applications,
-so only the default shapes will be shown in most applications.
+Unfortunately, the randomize feature is not widely supported (HarfBuzz
+supports it, as well as some other less widely used applications).
+In applications not supporting the randomize feature, only default shapes
+will be shown.
 
 The original METAFONT sources were adapted to a more MetaPost friendly
 form by Taco Hoekwater et al.
