@@ -1,6 +1,8 @@
 The Punk Nova font
 ==================
 
+![Sample](sample.png)
+
 This is an OpenType implementation of Donald Knuth’s
 [Punk font][1].
 
