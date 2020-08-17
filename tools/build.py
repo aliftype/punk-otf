@@ -163,7 +163,7 @@ def autokern(font, instances):
 
 def finalise(font):
     space         = font.createChar(32)
-    space.width   = 400
+    space.width   = "Bold" in font.fontname and 220 or 180
 
 def usage():
     print "Usage: %s INFILE.mp OUTFILE.otf VERSION" % sys.argv[0]
